@@ -1,48 +1,76 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import * as tf from '@tensorflow/tfjs';
+import '@tensorflow/tfjs-backend-webgl';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
 
 function ObjectDetection() {
   const [model, setModel] = useState(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [predictions, setPredictions] = useState([]);
+  const [imageData, setImageData] = useState(null);
   const canvasRef = useRef(null);
-  const imgRef = useRef(null);
+  const inputRef = useRef(null);
 
-  async function loadModel() {
-    const model = await cocoSsd.load();
-    setModel(model);
-  }
+  // Cargar el modelo COCO-SSD
+  useEffect(() => {
+    async function loadModel() {
+      const model = await cocoSsd.load();
+      setModel(model);
+    }
+    loadModel();
+  }, []);
 
-  async function detectObjects(event) {
-    const img = event.target.files[0];
-    const imgURL = URL.createObjectURL(img);
-    imgRef.current.src = imgURL;
+  // Detectar objetos cuando se carga una nueva imagen
+  useEffect(() => {
+    async function detectObjects() {
+      if (imageLoaded && model) {
+        const tensor = tf.browser.fromPixels(imageData);
+        const predictions = await model.detect(tensor);
+        setPredictions(predictions);
+      }
+    }
+    detectObjects();
+  }, [imageLoaded, model, imageData]);
 
-    const tensorImg = tf.browser.fromPixels(imgRef.current);
-    const predictions = await model.detect(tensorImg);
+  // Dibujar los resultados en un canvas
+  useEffect(() => {
+    if (predictions.length > 0 && imageData) {
+      const ctx = canvasRef.current.getContext('2d');
+      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      ctx.drawImage(imageData, 0, 0);
+      ctx.font = '12px Arial';
+      ctx.fillStyle = 'red';
+      predictions.forEach((prediction) => {
+        ctx.beginPath();
+        ctx.rect(...prediction.bbox);
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'red';
+        ctx.fillStyle = 'red';
+        ctx.stroke();
+        ctx.fillText(prediction.class, prediction.bbox[0], prediction.bbox[1] > 10 ? prediction.bbox[1] - 5 : 10);
+      });
+    }
+  }, [predictions, imageData]);
 
-    const ctx = canvasRef.current.getContext('webgl');
-    ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-    ctx.drawImage(imgRef.current, 0, 0);
-    ctx.font = '10px Arial';
-    predictions.forEach(prediction => {
-      ctx.beginPath();
-      ctx.rect(...prediction.bbox);
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = 'green';
-      ctx.fillStyle = 'green';
-      ctx.stroke();
-      ctx.fillText(prediction.class, prediction.bbox[0], prediction.bbox[1] > 10 ? prediction.bbox[1] - 5 : 10);
-    });
+  // Manejar el cambio de imagen
+  function handleImageChange(event) {
+    const image = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.src = reader.result;
+      img.onload = () => {
+        setImageData(img);
+        setImageLoaded(true);
+      };
+    };
+    reader.readAsDataURL(image);
   }
 
   return (
     <div>
-      <input type="file" accept="image/*" onChange={loadModel} />
-      <br />
+      <input type="file" accept="image/*" onChange={handleImageChange} ref={inputRef} />
       <canvas ref={canvasRef} />
-      <br />
-      <img ref={imgRef} style={{ display: 'none' }} alt="imagen" />
-
     </div>
   );
 }
