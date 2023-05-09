@@ -1,78 +1,95 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
 
-function ObjectDetection() {
-  const [model, setModel] = useState(null);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [predictions, setPredictions] = useState([]);
-  const [imageData, setImageData] = useState(null);
-  const canvasRef = useRef(null);
-  const inputRef = useRef(null);
+function DeteccionObjetos() {
+  const [modoCamara, setModoCamara] = useState('usuario')
+  const [modelo, setModelo] = useState(null);
+  const [imagenCargada, setImagenCargada] = useState(false);
+  const [predicciones, setPredicciones] = useState([]);
+  const [datosImagen, setDatosImagen] = useState(null);
+  const videoRef = useRef(null);
 
-  // Cargar el modelo COCO-SSD
+  // Carga el modelo pre-entrenado de detección de objetos COCO-SSD
   useEffect(() => {
-    async function loadModel() {
-      const model = await cocoSsd.load();
-      setModel(model);
+    async function cargarModelo() {
+      const modelo = await cocoSsd.load();
+      setModelo(modelo);
     }
-    loadModel();
+    cargarModelo();
   }, []);
 
-  // Detectar objetos cuando se carga una nueva imagen
+   // Detecta los objetos en la imagen cargada utilizando el modelo cargado de COCO-SSD
   useEffect(() => {
-    async function detectObjects() {
-      if (imageLoaded && model) {
-        const tensor = tf.browser.fromPixels(imageData);
-        const predictions = await model.detect(tensor);
-        setPredictions(predictions);
+    async function detectarObjetos() {
+      if (imagenCargada && modelo && datosImagen) {
+        const tensor = tf.browser.fromPixels(datosImagen);
+        const predicciones = await modelo.detect(tensor);
+        setPredicciones(predicciones);
       }
     }
-    detectObjects();
-  }, [imageLoaded, model, imageData]);
+    detectarObjetos();
+  }, [imagenCargada, modelo, datosImagen]);
 
-  // Dibujar los resultados en un canvas
+   // Activamos la camara
   useEffect(() => {
-    if (predictions.length > 0 && imageData) {
-      const ctx = canvasRef.current.getContext('2d');
-      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-      ctx.drawImage(imageData, 0, 0);
-      ctx.font = '12px Arial';
-      ctx.fillStyle = 'red';
-      predictions.forEach((prediction) => {
-        ctx.beginPath();
-        ctx.rect(...prediction.bbox);
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = 'red';
-        ctx.fillStyle = 'red';
-        ctx.stroke();
-        ctx.fillText(prediction.class, prediction.bbox[0], prediction.bbox[1] > 10 ? prediction.bbox[1] - 5 : 10);
-      });
-    }
-  }, [predictions, imageData]);
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: modoCamara } })
+      .then(stream => {
+        videoRef.current.srcObject = stream
+        videoRef.current.play()
 
-  // Manejar el cambio de imagen
-  function handleImageChange(event) {
-    const image = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      const img = new Image();
-      img.src = reader.result;
-      img.onload = () => {
-        setImageData(img);
-        setImageLoaded(true);
-      };
-    };
-    reader.readAsDataURL(image);
+      }).catch((error => console.error(error)))
+  }, [modoCamara]);
+
+// Toma una foto de la imagen capturada por la cámara y la guarda como un objeto Image
+  const tomarFoto = () => {
+    if (videoRef.current) {
+      const video = videoRef.current;
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+      const imagen = new Image();
+      imagen.src = canvas.toDataURL();
+      setDatosImagen(imagen);
+      setImagenCargada(true);
+      video.pause();
+    }
   }
+
+  // Reiniciamos la camara / Rotar camara
+  const volverATomarFoto = () => {
+    setModoCamara(modoCamara === 'usuario' ? 'environmet' : 'usuario' )
+    setImagenCargada(false);
+  }
+
+
+  const mensaje = predicciones.some(prediction => ['cup', 'wine glass', 'bottle'].includes(prediction.class))
+    ? <button>Continuar</button>
+    : imagenCargada ? (
+      <>
+        <button onClick={volverATomarFoto}>Volver a tomar foto</button>
+        <h1>No se encontró un trago en la foto</h1>
+      </>
+    ) : (
+      <>
+      <button onClick={tomarFoto}>Tomar foto</button>
+      <button onClick={volverATomarFoto}>Rotar</button>
+      </>
+    );
+
 
   return (
     <div>
-      <input type="file" accept="image/*" onChange={handleImageChange} ref={inputRef} />
-      <canvas ref={canvasRef} />
+      {imagenCargada ? (
+        <img src={datosImagen.src} alt="Imagen tomada" />
+      ) : (
+        <video ref={videoRef} autoPlay></video>
+      )}
+      {mensaje}
     </div>
   );
 }
 
-export default ObjectDetection;
+export default DeteccionObjetos;

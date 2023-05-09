@@ -2,8 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import Formulario from './components/Formulario/Formulario';
 import Inicio from './components/Inicio/Inicio';
-import CamaraActivada from "./components/CamaraActivada/CamaraActivada"
-import ObjectDetection from "./components/ConfirmarImagen/ConfirmarImagen"
+import DeteccionObjetos from "./components/ConfirmarImagen/ConfirmarImagen"
 
 
 function App() {
@@ -27,8 +26,7 @@ function App() {
           {paginaActual === 'formulario' && (
             <Route path="/" element={<Formulario />} />
           )}
-          <Route path="/camaraactivada" element={<CamaraActivada />} />
-          <Route path="/confirmacionImagen" element={<ObjectDetection />} />
+          <Route path="/deteccion_objetos" element={<DeteccionObjetos/>} />
         </Routes>
       </Router>
     </div>

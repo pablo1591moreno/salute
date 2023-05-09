@@ -51,7 +51,7 @@ const Formulario = ({ onCamaraActivada }) => {
   // Maneja la activación de la cámara y redirige a la ruta correspondiente si el formulario está completo
   const manejarCamaraActivada = async () => {
     if (formularioCompleto) {
-      navigate("/camaraactivada");
+      navigate("/deteccion_objetos");
     } else {
       alert("Por favor completa el formulario antes de activar la cámara.");
     }
