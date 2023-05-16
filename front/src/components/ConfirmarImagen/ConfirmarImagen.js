@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
+import { useNavigate } from 'react-router-dom';
 
 function DeteccionObjetos() {
   const [modoCamara, setModoCamara] = useState('usuario')
@@ -10,6 +11,7 @@ function DeteccionObjetos() {
   const [predicciones, setPredicciones] = useState([]);
   const [datosImagen, setDatosImagen] = useState(null);
   const videoRef = useRef(null);
+  const navigate = useNavigate();
 
   // Carga el modelo pre-entrenado de detección de objetos COCO-SSD
   useEffect(() => {
@@ -20,7 +22,7 @@ function DeteccionObjetos() {
     cargarModelo();
   }, []);
 
-   // Detecta los objetos en la imagen cargada utilizando el modelo cargado de COCO-SSD
+  // Detecta los objetos en la imagen cargada utilizando el modelo cargado de COCO-SSD
   useEffect(() => {
     async function detectarObjetos() {
       if (imagenCargada && modelo && datosImagen) {
@@ -32,7 +34,7 @@ function DeteccionObjetos() {
     detectarObjetos();
   }, [imagenCargada, modelo, datosImagen]);
 
-   // Activamos la camara
+  // Activamos la camara
   useEffect(() => {
     navigator.mediaDevices.getUserMedia({ video: { facingMode: modoCamara } })
       .then(stream => {
@@ -42,7 +44,7 @@ function DeteccionObjetos() {
       }).catch((error => console.error(error)))
   }, [modoCamara]);
 
-// Toma una foto de la imagen capturada por la cámara y la guarda como un objeto Image
+  // Toma una foto de la imagen capturada por la cámara y la guarda como un objeto Image
   const tomarFoto = () => {
     if (videoRef.current) {
       const video = videoRef.current;
@@ -60,8 +62,12 @@ function DeteccionObjetos() {
 
   // Reiniciamos la camara / Rotar camara
   const volverATomarFoto = () => {
-    setModoCamara(modoCamara === 'usuario' ? 'environmet' : 'usuario' )
+    setModoCamara(modoCamara === 'usuario' ? 'environmet' : 'usuario')
     setImagenCargada(false);
+  }
+
+  const conecta = () => {
+    navigate("/conectando")
   }
 
 
@@ -70,12 +76,13 @@ function DeteccionObjetos() {
     : imagenCargada ? (
       <>
         <button onClick={volverATomarFoto}>Volver a tomar foto</button>
+        <button onClick={conecta}>Continuar</button>
         <h1>No se encontró un trago en la foto</h1>
       </>
     ) : (
       <>
-      <button onClick={tomarFoto}>Tomar foto</button>
-      <button onClick={volverATomarFoto}>Rotar</button>
+        <button onClick={tomarFoto}>Tomar foto</button>
+        <button onClick={volverATomarFoto}>Rotar</button>
       </>
     );
 

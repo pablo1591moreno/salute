@@ -26,7 +26,7 @@ const paisesLatinoamericanos = [
   "Venezuela"
 ];
 
-const Formulario = ({ onCamaraActivada }) => {
+const Formulario = () => {
   const [nombre, setNombre] = useState("");
   const [pais, setPais] = useState("");
   const [brindoPor, setBrindoPor] = useState("");
@@ -56,6 +56,7 @@ const Formulario = ({ onCamaraActivada }) => {
       alert("Por favor completa el formulario antes de activar la cámara.");
     }
   };
+
 
   return (
     <form>

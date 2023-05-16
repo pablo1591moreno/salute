@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import Formulario from './components/Formulario/Formulario';
+import Formulario from "./components/Formulario/Formulario"
 import Inicio from './components/Inicio/Inicio';
 import DeteccionObjetos from "./components/ConfirmarImagen/ConfirmarImagen"
+import Conectado from "./components/Conectando/Conectando"
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/" element={<Formulario />} />
           )}
           <Route path="/deteccion_objetos" element={<DeteccionObjetos/>} />
+          <Route path="/conectando" element={<Conectado/>} />
         </Routes>
       </Router>
     </div>
