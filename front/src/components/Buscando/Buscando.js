@@ -5,9 +5,9 @@ function Buscando() {
   const { datosCompartidos } = useContext(DatosContext);
 
   useEffect(() => {
+    // Se ejecuta cuando cambian los datos compartidos
     if (datosCompartidos) {
       const { nombre, pais, brindopor, datosImagen } = datosCompartidos;
-      // Puedes utilizar los valores como desees dentro del componente
       console.log(nombre, pais, brindopor, datosImagen);
     }
   }, [datosCompartidos]);
@@ -15,6 +15,7 @@ function Buscando() {
   return (
     <div>
       {datosCompartidos ? (
+        // Si hay datos compartidos disponibles
         <div>
           <p>Nombre: {datosCompartidos.nombre}</p>
           <p>País: {datosCompartidos.pais}</p>
@@ -22,6 +23,7 @@ function Buscando() {
           <img src={datosCompartidos.datosImagen.src} alt="Imagen" />
         </div>
       ) : (
+        // Si no hay datos compartidos disponibles
         <p>Buscando...</p>
       )}
     </div>
