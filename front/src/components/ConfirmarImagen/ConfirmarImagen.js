@@ -3,7 +3,7 @@ import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
 import { useNavigate } from 'react-router-dom';
-import { DatosContext } from '../DatosContext';
+import { DatosContext } from '../Context/MyContext';
 
 
 function DeteccionObjetos() {
