@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
+import { useNavigate } from 'react-router-dom';
+import { DatosContext } from '../DatosContext';
 
 
 function DeteccionObjetos() {
@@ -11,6 +13,8 @@ function DeteccionObjetos() {
   const [predicciones, setPredicciones] = useState([]);
   const [datosImagen, setDatosImagen] = useState(null);
   const videoRef = useRef(null);
+  const navigate = useNavigate();
+  const { datosCompartidos, setDatosCompartidos } = useContext(DatosContext);
 
 
   // Carga el modelo pre-entrenado de detección de objetos COCO-SSD
@@ -66,13 +70,20 @@ function DeteccionObjetos() {
     setImagenCargada(false);
   }
 
-
+  const enviarImagen = () => {
+    setDatosCompartidos({
+      ...datosCompartidos,
+      datosImagen: datosImagen
+    });
+    // Navega al siguiente componente (por ejemplo, Conectado)
+    navigate('/Buscando');
+  };
 
   const mensaje = predicciones.some(prediction => ['cup', 'wine glass', 'bottle'].includes(prediction.class))
     ?
     <>
-      <button>Continuar</button>
       <button onClick={volverATomarFoto}>Volver a tomar foto</button>
+      <button onClick={enviarImagen} >Continuar</button>
     </>
     : imagenCargada ? (
       <>

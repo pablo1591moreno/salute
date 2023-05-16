@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
+import { DatosContext } from '../DatosContext';
+
 
 const paisesLatinoamericanos = [
   "Argentina",
@@ -32,6 +34,7 @@ const Formulario = () => {
   const [brindoPor, setBrindoPor] = useState("");
   const [formularioCompleto, setFormularioCompleto] = useState(false);
   const navigate = useNavigate();
+  const { datosCompartidos, setDatosCompartidos } = useContext(DatosContext); 
 
   const manejarCambioNombre = (e) => {
     setNombre(e.target.value);
@@ -51,11 +54,18 @@ const Formulario = () => {
   // Maneja la activación de la cámara y redirige a la ruta correspondiente si el formulario está completo
   const manejarCamaraActivada = async () => {
     if (formularioCompleto) {
+      setDatosCompartidos({
+        ...datosCompartidos,
+        nombre: nombre,
+        pais: pais,
+        brindopor: brindoPor
+      });
       navigate("/deteccion_objetos");
     } else {
       alert("Por favor completa el formulario antes de activar la cámara.");
     }
   };
+
 
 
   return (
