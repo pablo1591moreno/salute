@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
-import { useNavigate } from 'react-router-dom';
+
 
 function DeteccionObjetos() {
   const [modoCamara, setModoCamara] = useState('usuario')
@@ -11,7 +11,7 @@ function DeteccionObjetos() {
   const [predicciones, setPredicciones] = useState([]);
   const [datosImagen, setDatosImagen] = useState(null);
   const videoRef = useRef(null);
-  const navigate = useNavigate();
+
 
   // Carga el modelo pre-entrenado de detección de objetos COCO-SSD
   useEffect(() => {
@@ -66,17 +66,17 @@ function DeteccionObjetos() {
     setImagenCargada(false);
   }
 
-  const conecta = () => {
-    navigate("/conectando")
-  }
 
 
   const mensaje = predicciones.some(prediction => ['cup', 'wine glass', 'bottle'].includes(prediction.class))
-    ? <button>Continuar</button>
+    ?
+    <>
+      <button>Continuar</button>
+      <button onClick={volverATomarFoto}>Volver a tomar foto</button>
+    </>
     : imagenCargada ? (
       <>
         <button onClick={volverATomarFoto}>Volver a tomar foto</button>
-        <button onClick={conecta}>Continuar</button>
         <h1>No se encontró un trago en la foto</h1>
       </>
     ) : (
