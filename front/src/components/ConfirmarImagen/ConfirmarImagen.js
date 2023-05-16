@@ -3,7 +3,7 @@ import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
 import { useNavigate } from 'react-router-dom';
-import { DatosContext } from '../Context/MyContext';
+import  DatosContext  from '../Context/MyContext';
 
 
 function DeteccionObjetos() {
@@ -62,7 +62,8 @@ function DeteccionObjetos() {
       setImagenCargada(true);
       video.pause();
     }
-  }
+  };
+  
 
   // Reiniciamos la camara / Rotar camara
   const volverATomarFoto = () => {

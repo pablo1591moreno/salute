@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
-import { DatosContext } from '../Context/MyContext';
+import DatosContext from '../Context/MyContext';
 
 
 const paisesLatinoamericanos = [

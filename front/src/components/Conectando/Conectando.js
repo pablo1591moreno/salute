@@ -1,12 +1,23 @@
 import { io } from "socket.io-client";
-import { useState, useEffect } from "react"
-
+import { useState, useEffect, useContext } from "react"
+import DatosContext from '../Context/MyContext';
+  
 const socket = io('http://localhost:3000')
 
 function Conectado() {
     const [estaConectado, setEstaConectado] = useState(false)
     const [nuevoMensaje, setNuevoMensaje] = useState('')
-    
+    const datosCompartidos = useContext(DatosContext);
+
+    useEffect(() => {
+        if (datosCompartidos) {
+            console.log(datosCompartidos.datosImagen,  
+                datosCompartidos.nombre,
+                datosCompartidos.pais,
+                datosCompartidos.brindopor);
+        }
+    }, [datosCompartidos]);
+
 
     useEffect(() => {
 
