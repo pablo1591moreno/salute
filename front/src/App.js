@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Formulario from "./components/Formulario/Formulario"
 import Inicio from './components/Inicio/Inicio';
 import DeteccionObjetos from "./components/ConfirmarImagen/ConfirmarImagen"
-import Conectado from "./components/Conectando/Conectando"
 import  DatosContext  from './components/Context/MyContext';
 import Buscando from './components/Buscando/Buscando';
 
@@ -39,7 +38,6 @@ function App() {
             <Route path="/" element={<Formulario />} />
           )}
           <Route path="/deteccion_objetos" element={<DeteccionObjetos/>} />
-          <Route path="/conectando" element={<Conectado/>} />
           <Route path="/Buscando" element={<Buscando/>} />
         </Routes>
       </Router>
