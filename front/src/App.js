@@ -1,10 +1,11 @@
+import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import Formulario from "./components/Formulario/Formulario"
 import Inicio from './components/Inicio/Inicio';
+import Formulario from "./components/Formulario/Formulario"
 import DeteccionObjetos from "./components/ConfirmarImagen/ConfirmarImagen"
-import  DatosContext  from './components/Context/MyContext';
 import Buscando from './components/Buscando/Buscando';
+import DatosContext from './components/Context/MyContext';
 
 
 function App() {
