@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import DatosContext from '../Context/MyContext';
 import './Formulario.css'
+import camaraIcono from '../../imagenes/camara.png';
 
 const paisesLatinoamericanos = [
   "Argentina",
@@ -94,7 +95,9 @@ const Formulario = () => {
           <textarea type="text" id="brindoPor" value={brindoPor} onChange={manejarCambioBrindoPor} placeholder="por los amigos" />
         </div>
         <div className="botonCamara" >
-          <button className="camara" type="button" onClick={manejarCamaraActivada}>x</button>
+          <button className="foto" type="button" onClick={manejarCamaraActivada}>
+          <img className="imgCamaraUno" src={camaraIcono} alt="Camara" />
+          </button>
         </div>
       </div>
     </form>

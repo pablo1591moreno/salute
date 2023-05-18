@@ -3,8 +3,10 @@ import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
 import { useNavigate } from 'react-router-dom';
-import  DatosContext  from '../Context/MyContext';
-
+import DatosContext from '../Context/MyContext';
+import './ConfirmarImagen.css'
+import camaraIcono from '../../imagenes/camara.png';
+import rotarIcono from '../../imagenes/cameraRotate.png';
 
 function DeteccionObjetos() {
   const [modoCamara, setModoCamara] = useState('usuario')
@@ -63,7 +65,7 @@ function DeteccionObjetos() {
       video.pause();
     }
   };
-  
+
 
   // Reiniciamos la camara / Rotar camara
   const volverATomarFoto = () => {
@@ -93,20 +95,28 @@ function DeteccionObjetos() {
       </>
     ) : (
       <>
-        <button onClick={tomarFoto}>Tomar foto</button>
-        <button onClick={volverATomarFoto}>Rotar</button>
+          <button className='camara' onClick={tomarFoto}>
+          <img src={camaraIcono} alt="Camara"/>
+          </button>
+        <button className='rotar' onClick={volverATomarFoto}>
+        <img src={rotarIcono} alt="rotar"/>
+        </button>
       </>
     );
 
 
   return (
-    <div>
-      {imagenCargada ? (
-        <img src={datosImagen.src} alt="Imagen tomada" />
-      ) : (
-        <video ref={videoRef} autoPlay></video>
-      )}
-      {mensaje}
+    <div className='contenedor'>
+      <div class="videoContenedor">
+        {imagenCargada ? (
+          <img className='ImagenTomada' src={datosImagen.src} alt="Imagen tomada" />
+        ) : (
+          <video ref={videoRef} autoPlay></video>
+        )}
+        <div class="botones">
+          {mensaje}
+        </div>
+      </div>
     </div>
   );
 }

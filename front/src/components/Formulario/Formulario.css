@@ -66,11 +66,10 @@ textarea{
     margin-top: 24px;
 }
 
-.camara {
+.foto {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    color: #F28907;
     border: none;
     display: flex;
     justify-content: center;
@@ -78,4 +77,5 @@ textarea{
     cursor: pointer;
     background-color:#FFFFFF;
   }
+  
   
