@@ -34,7 +34,7 @@ const Formulario = () => {
   const [brindoPor, setBrindoPor] = useState("");
   const [formularioCompleto, setFormularioCompleto] = useState(false);
   const navigate = useNavigate();
-  const { datosCompartidos, setDatosCompartidos } = useContext(DatosContext); 
+  const { datosCompartidos, setDatosCompartidos } = useContext(DatosContext);
 
   const manejarCambioNombre = (e) => {
     setNombre(e.target.value);
@@ -70,26 +70,33 @@ const Formulario = () => {
 
   return (
     <form>
-      <div>
-        <label htmlFor="nombre">Nombre:</label>
-        <input type="text" id="nombre" value={nombre} onChange={manejarCambioNombre} />
-      </div>
-      <div>
-        <label htmlFor="pais">País:</label>
-        <select id="pais" value={pais} onChange={manejarCambioPais}>
-          <option value="">Selecciona un país</option>
-          {paisesLatinoamericanos.map((pais) => (
-            <option key={pais} value={pais}>
-              {pais}
+      <div className="formulario">
+        <h1>Salute</h1>
+        <div>
+          <label htmlFor="nombre">Nombre:</label>
+          <input type="text" id="nombre" value={nombre} onChange={manejarCambioNombre} placeholder="luis" />
+        </div>
+        <div>
+          <label htmlFor="pais">País:</label>
+          <select id="pais" value={pais} onChange={manejarCambioPais}>
+            <option value="" disabled selected hidden>
+              Argentina
             </option>
-          ))}
-        </select>
+            {paisesLatinoamericanos.map((pais) => (
+              <option key={pais} value={pais}>
+                {pais}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="brindoPor">Brindo por/para:</label>
+          <textarea type="text" id="brindoPor" value={brindoPor} onChange={manejarCambioBrindoPor} placeholder="por los amigos" />
+        </div>
+        <div className="botonCamara" >
+          <button className="camara" type="button" onClick={manejarCamaraActivada}>x</button>
+        </div>
       </div>
-      <div>
-        <label htmlFor="brindoPor">Brindo por/para:</label>
-        <input type="text" id="brindoPor" value={brindoPor} onChange={manejarCambioBrindoPor} />
-      </div>
-      <button type="button" onClick={manejarCamaraActivada}>Activar cámara</button>
     </form>
   );
 };
