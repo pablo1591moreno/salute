@@ -14,10 +14,11 @@ function DeteccionObjetos() {
   const [imagenCargada, setImagenCargada] = useState(false);
   const [predicciones, setPredicciones] = useState([]);
   const [datosImagen, setDatosImagen] = useState(null);
+
+
   const videoRef = useRef(null);
   const navigate = useNavigate();
   const { datosCompartidos, setDatosCompartidos } = useContext(DatosContext);
-
 
   // Carga el modelo pre-entrenado de detección de objetos COCO-SSD
   useEffect(() => {
@@ -38,7 +39,7 @@ function DeteccionObjetos() {
       }
     }
     detectarObjetos();
-  }, [imagenCargada, modelo, datosImagen]);
+  }, [imagenCargada, modelo, datosImagen], );
 
   // Activamos la camara
   useEffect(() => {
@@ -73,6 +74,12 @@ function DeteccionObjetos() {
     setImagenCargada(false);
   }
 
+  const volver = () => {
+    setModoCamara(modoCamara === 'usuario' ? 'environmet' : 'usuario');
+    setImagenCargada(false);
+    setPredicciones([])
+  };
+
   const enviarImagen = () => {
     setDatosCompartidos({
       ...datosCompartidos,
@@ -85,21 +92,28 @@ function DeteccionObjetos() {
   const mensaje = predicciones.some(prediction => ['cup', 'wine glass', 'bottle'].includes(prediction.class))
     ?
     <>
-      <button onClick={volverATomarFoto}>Volver a tomar foto</button>
+    <div className='continuarOTomar'>
+    <button onClick={volver}>Tomar otra</button>
       <button onClick={enviarImagen} >Continuar</button>
+      </div>
     </>
     : imagenCargada ? (
       <>
-        <button onClick={volverATomarFoto}>Volver a tomar foto</button>
-        <h1>No se encontró un trago en la foto</h1>
+        <div className='deNuevo' >
+          <button className='tomarDeNuevo' onClick={volverATomarFoto}>Tomar de nuevo</button>
+          <div className='texto' >
+            <p className='sinBebida' >Sin bebida no hay salute</p>
+            <p className='noDetect' >No detectamos ningun trago o bebida</p>
+          </div>
+        </div>
       </>
     ) : (
       <>
-          <button className='camara' onClick={tomarFoto}>
-          <img src={camaraIcono} alt="Camara"/>
-          </button>
+        <button className='camara' onClick={tomarFoto}>
+          <img src={camaraIcono} alt="Camara" />
+        </button>
         <button className='rotar' onClick={volverATomarFoto}>
-        <img src={rotarIcono} alt="rotar"/>
+          <img src={rotarIcono} alt="rotar" />
         </button>
       </>
     );
@@ -113,9 +127,9 @@ function DeteccionObjetos() {
         ) : (
           <video ref={videoRef} autoPlay></video>
         )}
-        <div class="botones">
+     
           {mensaje}
-        </div>
+       
       </div>
     </div>
   );
