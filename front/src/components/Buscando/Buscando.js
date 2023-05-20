@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import DatosContext from '../Context/MyContext';
 import { io } from 'socket.io-client';
+import "./Buscando.css"
 
 const socket = io('http://localhost:3000');
 
@@ -15,22 +16,17 @@ function Buscando() {
       const { usuario, mensaje } = data;
       const [nombre, pais, brindopor, datosImagen] = mensaje.split(', ');
       if (usuario === socket.id) {
-        console.log(data)
-        setMisDatos({ nombre, pais, brindopor, datosImagen });
-        
+        setMisDatos({ usuario, nombre, pais, brindopor, datosImagen });
       } else {
         const exist = otrosDatos.some((datos) => datos.usuario === usuario);
-        
-
         if (!exist) {
           setOtrosDatos((prevDatos) => [
             ...prevDatos,
-            { nombre, pais, brindopor, datosImagen },
+            { usuario, nombre, pais, brindopor, datosImagen },
           ]);
         }
       }
     });
-
     return () => {
       socket.off('chat_message');
     };
@@ -49,37 +45,55 @@ function Buscando() {
     // Verificar si hay datos recibidos de otros usuarios
     if (otrosDatos.length > 0) {
       // Mostrar los datos recibidos en pantalla
-      const { nombre, pais, brindopor, datosImagen} = otrosDatos[0];
+      const { nombre, pais, brindopor, datosImagen } = otrosDatos[0];
       setMisDatos({ nombre, pais, brindopor, datosImagen });
-      setCargando(false); // Desactivar la bandera de carga
+      setCargando(false);
     }
   }, [datosCompartidos, otrosDatos]);
 
   if (cargando) {
-    return <p>Cargando...</p>;
+    return <p>Buscando...</p>;
   }
 
 
+
   return (
-    <div>
-      {otrosDatos.map((datos) => (
-        <div key={datos.usuario}>
-          <p>Nombre: {datos.nombre}</p>
-          <p>País: {datos.pais}</p>
-          <p>brindo por: {datos.brindopor}</p>
-          <img src={datos.datosImagen} alt='foto' />
-        </div>
-      ))}
-      {misDatos && (
-        <div>
-          <p>Nombre: {misDatos.nombre}</p>
-          <p>País: {misDatos.pais}</p>
-          <p>brindo por: {misDatos.brindopor}</p>
-          <img src={misDatos.datosImagen} alt='foto' />
-        </div>
-      )}
+    <div className="contenedorBusqueda">
+      <div className='dosImagenes'>
+        {otrosDatos.map((datos) => (
+          <div className="imageOtro">
+            <img src={datos.datosImagen} alt="foto" />
+          </div>
+        ))}
+        {misDatos && (
+          <div className="tuImage">
+            <img src={misDatos.datosImagen} alt="foto" />
+          </div>
+        )}
+      </div>
+      <div className='textos'>
+        {otrosDatos.map((datos) => (
+          <div className="nombreOtro">
+            <p>Tú y {datos.nombre} de {datos.pais}</p>
+            <p>Están brindando por...</p>
+          </div>
+        ))}
+        {misDatos && (
+          <div className="tuBrindis">
+            <p>Tú {misDatos.brindopor}</p>
+          </div>
+        )}
+        {otrosDatos.map((datos) => (
+          <div className="brindisOtro">
+            <p>{datos.nombre} {datos.brindopor}</p>
+          </div>
+        ))}
+        <button className='compartir'>compartir</button>
+      </div>
     </div>
   );
+
+
 }
 
 export default Buscando;

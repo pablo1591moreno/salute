@@ -40,6 +40,7 @@ function App() {
           )}
           <Route path="/deteccion_objetos" element={<DeteccionObjetos/>} />
           <Route path="/Buscando" element={<Buscando/>} />
+ 
         </Routes>
       </Router>
       </DatosContext.Provider>

@@ -1,0 +1,53 @@
+
+.tuImage img,
+.imageOtro img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 30px;
+}
+
+.imageOtro {
+  top: 8%;
+  position: absolute;
+  left: 12%;
+}
+
+.tuImage {
+  position: absolute;
+  top: 20%;
+  right: 12%;
+  z-index: 1;
+}
+
+.textos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 40px 40px 0 0;
+  padding: 5% 0 15% 0;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+.espacio {
+  width: 90%;
+  margin: auto;
+}
+
+h1, h2, h3 {
+  color: #4B4C51;
+}
+
+.compartir{
+  font-size: 20px;
+  margin-top: 5%;
+  padding: 2% 7%;
+  border-radius: 10px;
+  border: none;
+  background-color: #F28907;
+  color: #FFFFFF;
+}
