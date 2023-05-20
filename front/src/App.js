@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setPaginaActual('formulario');
-    }, 5000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -40,7 +40,6 @@ function App() {
           )}
           <Route path="/deteccion_objetos" element={<DeteccionObjetos/>} />
           <Route path="/Buscando" element={<Buscando/>} />
- 
         </Routes>
       </Router>
       </DatosContext.Provider>

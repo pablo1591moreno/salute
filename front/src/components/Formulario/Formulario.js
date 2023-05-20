@@ -74,13 +74,13 @@ const Formulario = () => {
       <div className="formulario">
         <h1>Salute</h1>
         <div>
-          <label htmlFor="nombre">Nombre:</label>
-          <input type="text" id="nombre" value={nombre} onChange={manejarCambioNombre} placeholder="luis" />
+          <label htmlFor="nombre">Nombre</label>
+          <input type="text" id="nombre" value={nombre} onChange={manejarCambioNombre} placeholder="luis" maxlength="10" />
         </div>
         <div>
-          <label htmlFor="pais">País:</label>
+          <label htmlFor="pais">País</label>
           <select id="pais" value={pais} onChange={manejarCambioPais}>
-            <option value="" disabled selected hidden>
+            <option id="paisPlaceholder" value="" disabled selected hidden>
               Argentina
             </option>
             {paisesLatinoamericanos.map((pais) => (
@@ -91,8 +91,8 @@ const Formulario = () => {
           </select>
         </div>
         <div>
-          <label htmlFor="brindoPor">Brindo por/para:</label>
-          <textarea type="text" id="brindoPor" value={brindoPor} onChange={manejarCambioBrindoPor} placeholder="por los amigos" />
+          <label htmlFor="brindoPor">Brindo por/para</label>
+          <textarea type="text" id="brindoPor" value={brindoPor} onChange={manejarCambioBrindoPor} placeholder="por los amigos" maxlength="80" />
         </div>
         <div className="botonCamara" >
           <button className="foto" type="button" onClick={manejarCamaraActivada}>

@@ -23,45 +23,53 @@ form {
 }
 
 .formulario h1 {
-  text-align: center;
-  font-size: 62px;
-  margin: 0 0 24px 0;
-  padding: 0;
-  color: #F28907;
+    font-family: 'Grand Hotel', cursive;
+    font-weight: 100;
+    text-align: center;
+    font-size: 62px;
+    margin: 0;
+    padding: 0;
+    color: #F28907;
 }
 
 label {
+    font-family: 'Varela Round', sans-serif;
     font-size: 18px;
     color: #F28907;
     margin-bottom: 5px;
 }
 
-input, select{
+input,
+select {
+    font-family: 'Varela Round', sans-serif;
     height: 30px;
+    font-size: 18px;
     border: none;
     border-radius: 10px;
     padding-left: 5px;
     color: #F28907;
-    background-color:#FFFFFF;
+    background-color: #FFFFFF;
 }
 
 #brindoPor {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 18px;
     height: 100px;
     border: none;
     border-radius: 10px;
     padding: 5px 0 0 5px;
 }
 
-textarea{
+textarea {
     color: #F28907;
-    background-color:#FFFFFF;
+    background-color: #FFFFFF;
 }
 
-::placeholder{
+::placeholder {
     color: #F28907;
 }
 
-.botonCamara{
+.botonCamara {
     align-items: center;
     margin-top: 24px;
 }
@@ -75,7 +83,5 @@ textarea{
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background-color:#FFFFFF;
-  }
-  
-  
+    background-color: #FFFFFF;
+}

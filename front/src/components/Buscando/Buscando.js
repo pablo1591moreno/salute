@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import DatosContext from '../Context/MyContext';
 import { io } from 'socket.io-client';
-import "./Buscando.css"
+import './Buscando.css'
 
 const socket = io('http://localhost:3000');
 
@@ -59,7 +59,7 @@ function Buscando() {
 
   return (
     <div className="contenedorBusqueda">
-      <div className='dosImagenes'>
+      <div className='imagenes'>
         {otrosDatos.map((datos) => (
           <div className="imageOtro">
             <img src={datos.datosImagen} alt="foto" />
@@ -72,28 +72,28 @@ function Buscando() {
         )}
       </div>
       <div className='textos'>
-        {otrosDatos.map((datos) => (
-          <div className="nombreOtro">
-            <p>Tú y {datos.nombre} de {datos.pais}</p>
-            <p>Están brindando por...</p>
-          </div>
-        ))}
-        {misDatos && (
-          <div className="tuBrindis">
-            <p>Tú {misDatos.brindopor}</p>
-          </div>
-        )}
-        {otrosDatos.map((datos) => (
-          <div className="brindisOtro">
-            <p>{datos.nombre} {datos.brindopor}</p>
-          </div>
-        ))}
+        <div className='espacioText' >
+          {otrosDatos.map((datos) => (
+            <div className="nombreOtro">
+              <h1>Tú y {datos.nombre} de {datos.pais}</h1>
+              <h2>están brindando...</h2>
+            </div>
+          ))}
+          {misDatos && (
+            <div className="tuBrindis">
+              <h3>Tú {misDatos.brindopor}</h3>
+            </div>
+          )}
+          {otrosDatos.map((datos) => (
+            <div className="brindisOtro">
+              <h3>{datos.nombre} {datos.brindopor}</h3>
+            </div>
+          ))}
+        </div>
         <button className='compartir'>compartir</button>
       </div>
     </div>
   );
-
-
 }
 
 export default Buscando;

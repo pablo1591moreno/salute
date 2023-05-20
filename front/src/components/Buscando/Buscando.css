@@ -1,8 +1,18 @@
+.imagenes {
+  height: 60vh;
+  position: relative;
+}
 
-.tuImage img,
-.imageOtro img {
-  width: 200px;
-  height: 300px;
+.imageOtro,
+.tuImage {
+  width: 45%;
+  height: 60%;
+}
+
+.imageOtro img,
+.tuImage img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 30px;
 }
@@ -21,28 +31,26 @@
 }
 
 .textos {
+  height: 40vh;
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: white;
   border-radius: 40px 40px 0 0;
-  padding: 5% 0 15% 0;
-  position: fixed;
+  padding: 5% 0 10% 0;
   bottom: 0px;
   width: 100%;
 }
 
-.espacio {
-  width: 90%;
+.espacioText {
+  width: 80%;
   margin: auto;
 }
 
-h1, h2, h3 {
-  color: #4B4C51;
-}
-
-.compartir{
+.compartir {
+  font-family: 'Varela Round', sans-serif;
   font-size: 20px;
   margin-top: 5%;
   padding: 2% 7%;
@@ -50,4 +58,18 @@ h1, h2, h3 {
   border: none;
   background-color: #F28907;
   color: #FFFFFF;
+}
+
+.nombreOtro h1 {
+  font-family: 'Grand Hotel', cursive;
+  font-weight: 100;
+  font-size: 40px;
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  color: #4B4C51;
+  font-family: 'Varela Round', sans-serif;
 }
