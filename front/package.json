@@ -1,34 +1,23 @@
 {
-  "name": "salute",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@tensorflow-models/coco-ssd": "^2.2.2",
-    "@tensorflow/tfjs": "^4.5.0",
-    "@tensorflow/tfjs-backend-webgl": "^4.5.0",
-    "@tensorflow/tfjs-core": "^4.5.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "gh-pages": "^5.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.0",
-    "socket.io-client": "^4.6.1",
-    "uuid": "^9.0.0",
-    "web-vitals": "^2.1.4"
-  },
+  "name": "front",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "homepage": "https://pablo1591moreno.github.io/salute/",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "react-scripts": "^5.0.1"
   },
   "browserslist": {
     "production": [
@@ -42,7 +31,13 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "react-scripts": "^5.0.1"
+  "dependencies": {
+    "@tensorflow-models/coco-ssd": "^2.2.2",
+    "@tensorflow/tfjs": "^3.21.0",
+    "@tensorflow/tfjs-backend-webgl": "^3.21.0",
+    "gh-pages": "^5.0.0",
+    "react-router-dom": "^6.11.2",
+    "socket.io-client": "^4.6.1",
+    "web-vitals": "^3.3.1"
   }
 }
