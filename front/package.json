@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "gh-pages": "^5.0.0",
     "react-scripts": "^5.0.1"
   },
   "browserslist": {
@@ -35,7 +36,6 @@
     "@tensorflow-models/coco-ssd": "^2.2.2",
     "@tensorflow/tfjs": "^3.21.0",
     "@tensorflow/tfjs-backend-webgl": "^3.21.0",
-    "gh-pages": "^5.0.0",
     "react-router-dom": "^6.11.2",
     "socket.io-client": "^4.6.1",
     "web-vitals": "^3.3.1"
