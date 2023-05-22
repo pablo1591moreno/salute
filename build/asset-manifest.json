@@ -4,7 +4,7 @@
     "main.js": "/salute/static/js/main.44926605.js",
     "static/js/496.b2207812.chunk.js": "/salute/static/js/496.b2207812.chunk.js",
     "static/media/fondo.png": "/salute/static/media/fondo.1614e6fa3552d1d6e6ee.png",
-    "index.html": "/salute/index.html",
+    "index.html": "./index.html",
     "main.6dcab1cc.css.map": "/salute/static/css/main.6dcab1cc.css.map",
     "main.44926605.js.map": "/salute/static/js/main.44926605.js.map",
     "496.b2207812.chunk.js.map": "/salute/static/js/496.b2207812.chunk.js.map"
