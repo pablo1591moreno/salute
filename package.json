@@ -1,9 +1,9 @@
 {
+  "homepage": "https://pablo1591moreno.github.io/salute/",
   "name": "salute",
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
-  "homepage": "https://pablo1591moreno.github.io/salute/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
