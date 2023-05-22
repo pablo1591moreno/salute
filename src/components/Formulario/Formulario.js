@@ -61,7 +61,7 @@ const Formulario = () => {
         pais: pais,
         brindopor: brindoPor
       });
-      navigate("/deteccion_objetos");
+      navigate("/Deteccion_objetos");
     } else {
       alert("Por favor completa el formulario antes de activar la cámara.");
     }
