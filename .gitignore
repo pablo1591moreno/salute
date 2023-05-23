@@ -8,8 +8,8 @@ node_modules
 # testing
 coverage
 
-# production
-
+# server
+server
 
 # misc
 .DS_Store
