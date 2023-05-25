@@ -9,6 +9,7 @@ node_modules
 coverage
 server
 
+.indexOriginal.js
 
 # misc
 .DS_Store
